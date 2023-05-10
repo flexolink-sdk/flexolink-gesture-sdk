@@ -15,7 +15,7 @@
 https://openplatform.flexolinkai.com/#/platform/overview
 
 ### 快速接入SDK
-    ```
+```
 DataAcquisitionSDK.getInstance().scanDevice(MainActivity.this, new ScanListener() {
 @Override
 public void onScanResult(BleBean bleBean) {
@@ -33,6 +33,8 @@ Log.e("TAG", "onConnectResult: 连接失败");
 });
 }
 }
+```
+
 
 @Override
 public void onScanFinish(ScanResultEvent scanResultEvent) {
