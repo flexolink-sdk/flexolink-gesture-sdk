@@ -2,9 +2,11 @@ package com.example.testgestureapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     private TextView start;
     private TextView findDevice;
+    private ImageView gestureImg;
     private static Gson gson = new Gson();
     private ArrayList<UserBean> userBeans;
     private String modelPath1;
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.gesture);
         start = (TextView) findViewById(R.id.start);
         findDevice = (TextView) findViewById(R.id.findDevice);
+        gestureImg = (ImageView) findViewById(R.id.gestureImg);
         //通过appKey 和 appSecret生成签名
         HashMap<String, Object> map = new HashMap<>();
         map.put("appKey", "rl33338ba18d3v");  //管开发者获取
@@ -93,24 +97,31 @@ public class MainActivity extends AppCompatActivity {
                             public void run() {
                                 switch (i) {
                                     case 0:
+                                        gestureImg.setImageResource(R.mipmap.gesture0);
                                         textView.setText("食指");
                                         break;
                                     case 1:
+                                        gestureImg.setImageResource(R.mipmap.gesture1);
                                         textView.setText("捏指");
                                         break;
                                     case 2:
+                                        gestureImg.setImageResource(R.mipmap.gesture2);
                                         textView.setText("ok");
                                         break;
                                     case 3:
+                                        gestureImg.setImageResource(R.mipmap.gesture3);
                                         textView.setText("握拳");
                                         break;
                                     case 4:
+                                        gestureImg.setImageResource(R.mipmap.gesture4);
                                         textView.setText("左");
                                         break;
                                     case 5:
+                                        gestureImg.setImageResource(R.mipmap.gesture5);
                                         textView.setText("右");
                                         break;
                                     case 6:
+                                        gestureImg.setImageResource(R.mipmap.gesture6);
                                         textView.setText("竖大拇指");
                                         break;
                                 }
@@ -125,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onRestGestureData() {
-
+                        textView.setText("请放松");
+                        gestureImg.setImageResource(R.mipmap.gesture_rest);
                     }
                 });
 

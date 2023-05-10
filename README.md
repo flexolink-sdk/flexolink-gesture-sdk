@@ -8,12 +8,39 @@
 3. 支持服务：肌电SDK还提供了支持服务，包括技术支持和咨询服务。开发者可以通过电话、邮件或在线聊天等方式与柔灵科技的技术支持团队联系，获得快速有效的支持。
 
 
-##### 购买柔灵产品 **肌电SDK以访问密钥（appKey）识别调用者身份，提供自动签名等功能，方便您通过SDK接入柔灵脑电产品。实现云SDK功能需要您购买柔灵脑电产品，并申请appKey和appSecret。**
+##### 购买柔灵产品 
+肌电SDK以访问密钥（appKey）识别调用者身份，提供自动签名等功能，方便您通过SDK接入柔灵脑电产品。实现云SDK功能需要您购买柔灵脑电产品，并申请appKey和appSecret。
 
-##### 以下是sdk文档链接 
+### 以下是sdk文档链接 
 https://openplatform.flexolinkai.com/#/platform/overview
 
-##### demo流程
+### 快速接入SDK
+    ```
+DataAcquisitionSDK.getInstance().scanDevice(MainActivity.this, new ScanListener() {
+@Override
+public void onScanResult(BleBean bleBean) {
+Log.e("TAG", "蓝牙" + bleBean.getName());
+if (bleBean.getName().equals(bleName)) {
+DataAcquisitionSDK.getInstance().connectDevice(MainActivity.this, bleBean, new ConnectListener() {
+@Override
+public void onConnectResult(int i) {
+if (i == ConnectResultType.SUCCESS.getValue()) {
+Log.e("TAG", "onConnectResult: 连接成功");
+} else {
+Log.e("TAG", "onConnectResult: 连接失败");
+}
+}
+});
+}
+}
+
+@Override
+public void onScanFinish(ScanResultEvent scanResultEvent) {
+
+}
+                });
+
+### demo流程
 1.联系业务员获取appKey和appSecret
 
 2.通过appKey和appSecret生成sign签名（通过demo的SignUtil生成）
