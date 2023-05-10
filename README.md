@@ -16,25 +16,92 @@ https://openplatform.flexolinkai.com/#/platform/overview
 
 ### 快速接入SDK
 ```
+//蓝牙初始化并开始扫描
 DataAcquisitionSDK.getInstance().scanDevice(MainActivity.this, new ScanListener() {
-@Override
-public void onScanResult(BleBean bleBean) {
-Log.e("TAG", "蓝牙" + bleBean.getName());
-if (bleBean.getName().equals(bleName)) {
-DataAcquisitionSDK.getInstance().connectDevice(MainActivity.this, bleBean, new ConnectListener() {
-@Override
-public void onConnectResult(int i) {
-if (i == ConnectResultType.SUCCESS.getValue()) {
-Log.e("TAG", "onConnectResult: 连接成功");
-} else {
-Log.e("TAG", "onConnectResult: 连接失败");
-}
-}
-});
-}
-}
+                    @Override
+                    public void onScanResult(BleBean bleBean) {
+                        Log.e("TAG", "蓝牙" + bleBean.getName());
+                        if (bleBean.getName().equals(bleName)) {
+                            DataAcquisitionSDK.getInstance().connectDevice(MainActivity.this, bleBean, new ConnectListener() {
+                                @Override
+                                public void onConnectResult(int i) {
+                                    if (i == ConnectResultType.SUCCESS.getValue()) {
+                                        Log.e("TAG", "onConnectResult: 连接成功");
+                                    } else {
+                                        Log.e("TAG", "onConnectResult: 连接失败");
+                                    }
+                                }
+                            });
+                        }
+                    }
+
+                    @Override
+                    public void onScanFinish(ScanResultEvent scanResultEvent) {
+
+                    }
+                });
 ```
 
+```
+//手势推理
+GestureSDK.getInstance().startGesture(MainActivity.this, getFilesDir().getPath()+"/model1.tflite", getFilesDir().getPath()+"/model2.tflite", 7);
+                GestureSDK.getInstance().setGestureListener(new GestureListener() {
+                    @Override
+                    public void onRealTimeDirectionData(int i) {
+
+                    }
+
+                    @Override
+                    public void onRealTimeGestureData(int i) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                switch (i) {
+                                    case 0:
+                                        gestureImg.setImageResource(R.mipmap.gesture0);
+                                        textView.setText("食指");
+                                        break;
+                                    case 1:
+                                        gestureImg.setImageResource(R.mipmap.gesture1);
+                                        textView.setText("捏指");
+                                        break;
+                                    case 2:
+                                        gestureImg.setImageResource(R.mipmap.gesture2);
+                                        textView.setText("ok");
+                                        break;
+                                    case 3:
+                                        gestureImg.setImageResource(R.mipmap.gesture3);
+                                        textView.setText("握拳");
+                                        break;
+                                    case 4:
+                                        gestureImg.setImageResource(R.mipmap.gesture4);
+                                        textView.setText("左");
+                                        break;
+                                    case 5:
+                                        gestureImg.setImageResource(R.mipmap.gesture5);
+                                        textView.setText("右");
+                                        break;
+                                    case 6:
+                                        gestureImg.setImageResource(R.mipmap.gesture6);
+                                        textView.setText("竖大拇指");
+                                        break;
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onRealTimeWaveData(float[][] floats) {
+
+                    }
+
+                    @Override
+                    public void onRestGestureData() {
+                        textView.setText("请放松");
+                        gestureImg.setImageResource(R.mipmap.gesture_rest);
+                    }
+                });
+```
 
 @Override
 public void onScanFinish(ScanResultEvent scanResultEvent) {
