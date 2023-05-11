@@ -11,8 +11,8 @@
 ##### 购买柔灵产品 
 肌电SDK以访问密钥（appKey）识别调用者身份，提供自动签名等功能，方便您通过SDK接入柔灵脑电产品。实现云SDK功能需要您购买柔灵脑电产品，并申请appKey和appSecret。
 
-### 以下是sdk文档链接 
-https://openplatform.flexolinkai.com/#/platform/overview
+### 以下是sdk文档链接   AirBand Android SDK
+https://openplatform.flexolinkai.com/#/guide/airBand/android/collection/register
 
 ### 快速接入SDK
 ```
