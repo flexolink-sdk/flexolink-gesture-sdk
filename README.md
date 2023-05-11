@@ -14,6 +14,8 @@
 ### 以下是sdk文档链接   AirBand Android SDK
 https://openplatform.flexolinkai.com/#/guide/airBand/android/collection/register
 
+![img.png](img.png)
+
 ### 快速接入SDK
 ```
 //蓝牙初始化并开始扫描
