@@ -73,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
         gestureImg = (ImageView) findViewById(R.id.gestureImg);
         //通过appKey 和 appSecret生成签名
         HashMap<String, Object> map = new HashMap<>();
-        map.put("appKey", "rl33338ba18d3v");  //管开发者获取
-        map.put("appSecret", "b3a8ddefdfca3212631353017dd1b331"); //管开发者获取
+        map.put("appKey", "************");  //管开发者获取
+        map.put("appSecret", "************"); //管开发者获取
         sign =  SignUtil.sign(map);
         //获取token,把token放到header里
         requestToken();
