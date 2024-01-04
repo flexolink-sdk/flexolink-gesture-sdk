@@ -195,10 +195,12 @@ public class MainActivity extends AppCompatActivity {
                     public void _onNext(ResponseData<ArrayList<UserBean>> userBeanResponseData) {
                         if (null != userBeanResponseData) {
                             userBeans = userBeanResponseData.getData();
-                            if (userBeans.size()>=1){
-                                modelPath1 = userBeans.get(0).getModelUrlList().get(0);
-                                modelPath2 = userBeans.get(0).getModelUrlList().get(1);
-                                download(getFilesDir().getPath(),modelPath1,modelPath2);
+                            if (userBeans!=null){
+                                if (userBeans.size()>=1){
+                                    modelPath1 = userBeans.get(0).getModelUrlList().get(0);
+                                    modelPath2 = userBeans.get(0).getModelUrlList().get(1);
+                                    download(getFilesDir().getPath(),modelPath1,modelPath2);
+                                }
                             }
                         }
                     }
@@ -225,9 +227,11 @@ public class MainActivity extends AppCompatActivity {
                     public void _onNext(ResponseData<TokenBean> loginBeanResponseData) {
                         if (null != loginBeanResponseData) {
                             HttpHeaders httpHeaders = new HttpHeaders();
-                            httpHeaders.put("token", loginBeanResponseData.getData().getAccessToken());
-                            OkGo.getInstance().addCommonHeaders(httpHeaders);
-                            requestModel(bleName);
+                            if (loginBeanResponseData.getData()!=null){
+                                httpHeaders.put("token", loginBeanResponseData.getData().getAccessToken());
+                                OkGo.getInstance().addCommonHeaders(httpHeaders);
+                                requestModel(bleName);
+                            }
                         }
                     }
 
@@ -260,8 +264,8 @@ public class MainActivity extends AppCompatActivity {
     public  Observable<ResponseData<TokenBean>> getToken() {
         HashMap<String, Object> map = new HashMap<>();
         map.put("sign", sign);  //管开发者获取
-        map.put("appKey", "rl33338ba18d3v");  //管开发者获取
-        map.put("appSecret", "b3a8ddefdfca3212631353017dd1b331"); //管开发者获取
+        map.put("appKey", "************");  //管开发者获取
+        map.put("appSecret", "************"); //管开发者获取
         return OkGo.<ResponseData<TokenBean>>post("http://openapi.flexolinkai.com/api/auth/getToken")
                 .upRequestBody(ReqBody.getReqBody(map))
                 .converter(new Converter<ResponseData<TokenBean>>() {
